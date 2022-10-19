@@ -1,10 +1,9 @@
-//package com.cn.camunda.security.config;
+//package com.cn.camunda.auth.rest;
 //
-//import com.cn.camunda.security.filter.rest.StatelessUserAuthenticationFilter;
+//import com.cn.camunda.auth.rest.filter.StatelessUserAuthenticationFilter;
 //import org.springframework.boot.autoconfigure.security.SecurityProperties;
 //import org.springframework.boot.web.servlet.FilterRegistrationBean;
 //import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.ComponentScan;
 //import org.springframework.context.annotation.Configuration;
 //import org.springframework.core.annotation.Order;
 //import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,7 +12,7 @@
 //
 //@Configuration
 //@Order(SecurityProperties.BASIC_AUTH_ORDER - 20)
-//public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
+//public class EngineRestSecurityConfig extends WebSecurityConfigurerAdapter {
 //
 //    @Override
 //    protected void configure(HttpSecurity http) throws Exception {
@@ -31,6 +30,7 @@
 //    @Bean
 //    public FilterRegistrationBean statelessUserAuthenticationFilter() {
 //        FilterRegistrationBean filterRegistration = new FilterRegistrationBean();
+////        filterRegistration.setName("rest-basic-auth");
 //        filterRegistration.setFilter(new StatelessUserAuthenticationFilter());
 //        filterRegistration.setOrder(102); // make sure the filter is registered after the Spring Security Filter Chain
 //        filterRegistration.addUrlPatterns("/rest/*");

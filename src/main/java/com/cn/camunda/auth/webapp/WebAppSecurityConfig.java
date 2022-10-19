@@ -1,4 +1,4 @@
-package com.cn.camunda.security.config;
+package com.cn.camunda.auth.webapp;
 
 import org.camunda.bpm.webapp.impl.security.auth.ContainerBasedAuthenticationFilter;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import javax.servlet.DispatcherType;
@@ -14,11 +15,11 @@ import java.util.Collections;
 import java.util.EnumSet;
 
 @Configuration
-@Order(SecurityProperties.BASIC_AUTH_ORDER - 15)
+@EnableWebSecurity
+@Order(SecurityProperties.BASIC_AUTH_ORDER - 20)
 public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] CAMUNDA_APP_PATHS = {"/camunda/app/**", "/camunda/api/**", "/camunda/lib/**"};
-    private static final String[] CAMUNDA_UI_URL_PATTERNS = {"/camunda/app/*"};
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -29,9 +30,9 @@ public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
     public FilterRegistrationBean<ContainerBasedAuthenticationFilter> containerBasedAuthenticationFilter() {
 
         FilterRegistrationBean<ContainerBasedAuthenticationFilter> registrationBean = new FilterRegistrationBean<>(new ContainerBasedAuthenticationFilter());
-        registrationBean.setInitParameters(Collections.singletonMap("authentication-provider", "com.cn.camunda.security.filter.webapp.SpringSecurityAuthenticationProvider"));
-        registrationBean.setOrder(101); // make sure the filter is registered after the Spring Security Filter Chain
-        registrationBean.addUrlPatterns(CAMUNDA_UI_URL_PATTERNS);
+        registrationBean.setInitParameters(Collections.singletonMap("authentication-provider", "com.cn.camunda.auth.webapp.filter.SpringSecurityAuthenticationProvider"));
+//        registrationBean.setOrder(102); // make sure the filter is registered after the Spring Security Filter Chain
+        registrationBean.addUrlPatterns("/camunda/app/*"); //, "/camunda/api/*"
         registrationBean.setDispatcherTypes(EnumSet.of(DispatcherType.REQUEST));
         return registrationBean;
     }
