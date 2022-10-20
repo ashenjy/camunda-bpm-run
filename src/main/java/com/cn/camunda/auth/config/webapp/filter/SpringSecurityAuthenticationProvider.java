@@ -1,4 +1,4 @@
-package com.cn.camunda.auth.webapp.filter;
+package com.cn.camunda.auth.config.webapp.filter;
 
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.rest.security.auth.AuthenticationResult;

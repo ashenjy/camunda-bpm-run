@@ -1,4 +1,4 @@
-package com.cn.camunda.auth.rest;
+package com.cn.camunda.auth.config.rest;
 
 import com.cn.camunda.auth.jwt.JwtAuthenticationEntryPoint;
 import com.cn.camunda.auth.jwt.JwtRequestFilter;
