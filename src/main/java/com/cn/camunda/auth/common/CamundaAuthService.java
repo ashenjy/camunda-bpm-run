@@ -1,4 +1,4 @@
-package com.cn.camunda.auth.delete.jwt;
+package com.cn.camunda.auth.common;
 
 import org.camunda.bpm.engine.AuthorizationService;
 import org.camunda.bpm.engine.ProcessEngine;

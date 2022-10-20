@@ -27,7 +27,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 //        jsr250Enabled = true
 )
 @Order(SecurityProperties.BASIC_AUTH_ORDER - 15)
-public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
+public class CamundaRESTSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -38,6 +38,15 @@ public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
+    private static final String[] UNPROTECTED_PATHS = {
+            "/actuator/**", // spring actuator endpoints
+            "/error", // spring error page
+            "/authenticate" // visible resources, for example for SPA
+    };
+
+    private static final String[] PROTECTED_PATHS = {
+            "/engine-rest/**" // visible resources, for example for SPA
+    };
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -67,10 +76,10 @@ public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable()
                 // dont authenticate this particular request
                 .authorizeRequests()
-                .antMatchers("/authenticate")
+                .antMatchers(UNPROTECTED_PATHS)
                 .permitAll().
-                // all other requests need to be authenticated                .and().authorizeRequests().antMatchers("/engine-rest/**").
-                        antMatchers("/engine-rest/**").authenticated().and().
+                // all other requests need to be authenticated
+                        antMatchers(PROTECTED_PATHS).authenticated().and().
                 // make sure we use stateless session; session won't be used to
                 // store user's state.
                         exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()

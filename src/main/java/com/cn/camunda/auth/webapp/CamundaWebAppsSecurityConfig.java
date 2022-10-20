@@ -17,13 +17,19 @@ import java.util.EnumSet;
 @Configuration
 @EnableWebSecurity
 @Order(SecurityProperties.BASIC_AUTH_ORDER - 20)
-public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
+public class CamundaWebAppsSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    // The paths used by camunda webapps. These are the paths that our HttpSecurity applies to
     private static final String[] CAMUNDA_APP_PATHS = {"/camunda/app/**", "/camunda/api/**", "/camunda/lib/**"};
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.antMatcher("/camunda/app/**").authorizeRequests().anyRequest().authenticated().and().httpBasic();// this is just an example, use any auth mechanism you like
+        http
+                // Only apply this HttpSecurity to the camunda webapp paths
+                .requestMatchers().antMatchers(CAMUNDA_APP_PATHS).and()
+                // Disable CSRF for these paths
+                .csrf().disable().authorizeRequests().anyRequest().authenticated().and().httpBasic();
+//        http.antMatcher(CAMUNDA_APP_PATHS).authorizeRequests().anyRequest().authenticated().and().httpBasic();// this is just an example, use any auth mechanism you like
     }
 
     @Bean
