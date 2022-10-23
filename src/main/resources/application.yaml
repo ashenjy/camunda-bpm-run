@@ -4,7 +4,7 @@ spring:
   application:
     name: camunda-run
   datasource:
-    url: jdbc:h2:mem:camunda-bpm-run;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:camunda-run;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     # save to file --> url=jdbc:h2:file:./data/demo
     username: sa
     password: sa
@@ -87,13 +87,13 @@ logging.level:
 #  org.springframework.security: TRACE
   org.camunda:
     bpm:
-      engine: INFO
-      spring: INFO
+      engine: DEBUG
+      spring: DEBUG
     #      extension:
     #        keycloak: INFO
     spin: INFO
 
   # To log REST controllers
-  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: TRACE
+  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: INFO
   # To log web access
-  org.springframework.web: TRACE
+  org.springframework.web: INFO
