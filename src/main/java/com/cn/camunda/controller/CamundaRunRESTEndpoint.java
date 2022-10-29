@@ -1,7 +1,7 @@
 //package com.cn.camunda.controller;
 //
-//import com.cn.camunda.model.JwtRequest;
-//import com.cn.camunda.model.JwtResponse;
+//import com.cn.camunda.models.JwtRequest;
+//import com.cn.camunda.models.JwtResponse;
 //import com.cn.camunda.auth.jwt.util.JwtTokenUtil;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.http.ResponseEntity;

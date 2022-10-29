@@ -1,17 +1,33 @@
 server.port: 8181
 
+application:
+  jwt:
+    secret-path: /home/ashen/Desktop/Programming/upwork/camunda-ext-task/camunda-microservices/keys/key.pub
+    expiration-ms: 100000
+    cookie-name: user-service
+
 spring:
   application:
     name: camunda-run
+#  datasource:
+#    url: jdbc:h2:mem:camunda-db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+#    # save to file --> url=jdbc:h2:file:./data/demo
+#    username: sa
+#    password: sa
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      #      dialect: org.hibernate.dialect.H2Dialect
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-    url: jdbc:h2:mem:camunda-run;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    # save to file --> url=jdbc:h2:file:./data/demo
-    username: sa
-    password: sa
-  h2:
-    console:
-      enabled: true
-      path: /h2
+    url: "jdbc:postgresql://localhost:5432/camunda-services"
+    username: postgres
+    password: root
 
   #spring.security.user.name: user
   #spring.security.user.password: user
@@ -25,9 +41,9 @@ spring:
 #    open-in-view: true # disable JPA warning
 
 camunda:
-  rest-api:
-    jwt:
-      secret-path: /home/ashen/Desktop/Programming/upwork/camunda-ext-task/camunda-microservices/keys/key.pub
+#  rest-api:
+#    jwt:
+#      secret-path: /home/ashen/Desktop/Programming/upwork/camunda-ext-task/camunda-microservices/keys/key.pub
   bpm:
     authorization.enabled: true
   #  run:
@@ -83,12 +99,12 @@ logging.level:
   ##  org.hibernate: INFO
   ##  org.apache.http: INFO
   '[com.cn.camunda.auth.filter.webapp]': TRACE
-  '[com.cn.camunda.auth.delete.groovy]': DEBUG
+#  '[com.cn.camunda.auth.delete.groovy]': DEBUG
 #  org.springframework.security: TRACE
   org.camunda:
     bpm:
-      engine: DEBUG
-      spring: DEBUG
+      engine: INFO
+      spring: INFO
     #      extension:
     #        keycloak: INFO
     spin: INFO
